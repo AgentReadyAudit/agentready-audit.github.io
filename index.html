@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentReadyAudit – robot d'analyse de boutiques en ligne</title>
+<meta name="description" content="Informations sur AgentReadyAudit : ce que fait ce robot, ce qu'il charge, à quelle cadence, et comment demander à être exclu.">
+<style>
+  :root { --bg:#fbfaf8; --fg:#1f2328; --muted:#59636e; --line:#d8dee4; --accent:#0b5cad; --card:#ffffff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#14171a; --fg:#e6e9ec; --muted:#9aa4af; --line:#2c3238; --accent:#6cb2ff; --card:#1b1f23; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width: 44rem; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 .5rem; }
+  h2 { font-size: 1.15rem; margin: 2.2rem 0 .6rem; }
+  p, li { color: var(--fg); }
+  .lead { color: var(--muted); margin-top: 0; }
+  a { color: var(--accent); }
+  code { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: .1rem .35rem; font-size: .92em; }
+  pre { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: .8rem 1rem; overflow-x: auto; }
+  pre code { border: 0; padding: 0; }
+  table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+  th, td { text-align: left; padding: .45rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; width: 38%; }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .9rem 1.1rem; margin: 1rem 0; }
+  footer { margin-top: 3rem; color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>AgentReadyAudit</h1>
+  <p class="lead">Un robot qui regarde, une seule fois, comment une boutique en ligne apparaît à un agent d'IA.</p>
+
+  <p>Si vous êtes ici, c'est probablement que ce nom est apparu dans les journaux de votre site. Cette page dit ce que fait le robot, ce qu'il ne fait pas, et comment l'arrêter.</p>
+
+  <h2>Ce qu'il fait</h2>
+  <p>AgentReadyAudit vérifie si les pages publiques d'une boutique sont faciles à lire par les assistants d'IA qui aident à choisir un produit : données structurées (prix, disponibilité, référence), textes alternatifs des images, accès autorisé aux robots, etc. Le but est de signaler au marchand ce qui empêche une IA de recommander ses produits.</p>
+
+  <table>
+    <tr><th>Pages chargées par audit</th><td><span data-claim="max-pages">6</span> au plus : <code>/robots.txt</code>, la page d'accueil, <code>/llms.txt</code>, et quelques fiches produit liées depuis l'accueil.</td></tr>
+    <tr><th>Cadence</th><td>Une requête toutes les <span data-claim="delay-s">2</span> secondes au plus, vers un seul site à la fois. Un audit dure moins d'une minute.</td></tr>
+    <tr><th>Fréquence</th><td>Un audit par boutique, non répété automatiquement.</td></tr>
+    <tr><th>User-Agent</th><td><code>AgentReadyAudit/0.1 (+adresse de cette page)</code></td></tr>
+  </table>
+
+  <h2>Ce qu'il ne fait pas</h2>
+  <ul>
+    <li>Il respecte votre <code>robots.txt</code> : une adresse qu'il interdit n'est jamais chargée. Si ce fichier est inaccessible à cause d'une erreur du serveur, le robot s'abstient.</li>
+    <li>Il ne se connecte à aucun compte, ne remplit aucun formulaire, ne passe aucune commande et n'ajoute rien au panier.</li>
+    <li>Il ne cherche aucune zone d'administration, aucune faille, aucun mot de passe.</li>
+    <li>Il ne suit pas les liens vers un autre domaine.</li>
+    <li>Il ne contourne ni blocage ni captcha : s'il est refusé, il s'arrête.</li>
+  </ul>
+
+  <h2>Ce qui est conservé</h2>
+  <p>Le robot ne garde que des <strong>constats</strong> sur la boutique (par exemple « prix absent des données structurées sur 2 fiches sur 5 »). Il ne conserve pas le contenu des pages, ni les photos, ni les textes de vos produits.</p>
+
+  <h2>Demander à être exclu</h2>
+  <div class="box">
+    <p><strong>Par votre <code>robots.txt</code></strong> (effet immédiat) :</p>
+<pre><code>User-agent: AgentReadyAudit
+Disallow: /</code></pre>
+    <p><strong>Ou par e-mail</strong> à <a href="mailto:agentready.audit@proton.me">agentready.audit@proton.me</a> en indiquant votre nom de domaine. Votre site est alors retiré de toute liste d'audit, et les constats déjà établis à son sujet sont supprimés dans un délai de <span data-claim="erase-days">7</span> jours.</p>
+  </div>
+
+  <h2>Une question, un signalement</h2>
+  <p>Si le robot a causé une gêne (charge, requêtes inattendues), écrivez à la même adresse en indiquant l'heure et l'adresse concernées. Les réponses sont données en français ou en anglais.</p>
+
+  <hr>
+  <p lang="en"><strong>English.</strong> AgentReadyAudit fetches at most <span data-claim="max-pages-en">6</span> public pages of an online shop, once, to check how readable they are for AI assistants (structured data, image alt text, bot access). It obeys <code>robots.txt</code>, never logs in, submits forms or probes for vulnerabilities, and stores only findings, not page content. To opt out, add <code>User-agent: AgentReadyAudit</code> / <code>Disallow: /</code> to your <code>robots.txt</code>, or write to the address above.</p>
+
+  <footer>Page mise à jour pour la version 0.1 du robot.</footer>
+</main>
+</body>
+</html>
