@@ -39,7 +39,7 @@
   <p>AgentReadyAudit vérifie si les pages publiques d'une boutique sont faciles à lire par les assistants d'IA qui aident à choisir un produit : données structurées (prix, disponibilité, référence), textes alternatifs des images, accès autorisé aux robots, etc. Le but est de signaler au marchand ce qui empêche une IA de recommander ses produits.</p>
 
   <table>
-    <tr><th>Pages chargées par audit</th><td><span data-claim="max-pages">6</span> au plus : <code>/robots.txt</code>, la page d'accueil, <code>/llms.txt</code>, et quelques fiches produit liées depuis l'accueil.</td></tr>
+    <tr><th>Requêtes par audit</th><td><span data-claim="max-requests">8</span> au plus (une de plus si votre site redirige vers sa version <code>www</code>) : <code>/robots.txt</code>, <code>/llms.txt</code>, la page d'accueil et jusqu'à <span data-claim="max-product-pages">5</span> fiches produit liées depuis l'accueil.</td></tr>
     <tr><th>Cadence</th><td>Une requête toutes les <span data-claim="delay-s">2</span> secondes au plus, vers un seul site à la fois. Un audit dure moins d'une minute.</td></tr>
     <tr><th>Fréquence</th><td>Un audit par boutique, non répété automatiquement.</td></tr>
     <tr><th>User-Agent</th><td><code>AgentReadyAudit/0.1 (+adresse de cette page)</code></td></tr>
@@ -69,7 +69,7 @@ Disallow: /</code></pre>
   <p>Si le robot a causé une gêne (charge, requêtes inattendues), écrivez à la même adresse en indiquant l'heure et l'adresse concernées. Les réponses sont données en français ou en anglais.</p>
 
   <hr>
-  <p lang="en"><strong>English.</strong> AgentReadyAudit fetches at most <span data-claim="max-pages-en">6</span> public pages of an online shop, once, to check how readable they are for AI assistants (structured data, image alt text, bot access). It obeys <code>robots.txt</code>, never logs in, submits forms or probes for vulnerabilities, and stores only findings, not page content. To opt out, add <code>User-agent: AgentReadyAudit</code> / <code>Disallow: /</code> to your <code>robots.txt</code>, or write to the address above.</p>
+  <p lang="en"><strong>English.</strong> AgentReadyAudit makes at most <span data-claim="max-requests-en">8</span> requests to an online shop (one more if it redirects to its <code>www</code> version), once, to check how readable they are for AI assistants (structured data, image alt text, bot access). It obeys <code>robots.txt</code>, never logs in, submits forms or probes for vulnerabilities, and stores only findings, not page content. To opt out, add <code>User-agent: AgentReadyAudit</code> / <code>Disallow: /</code> to your <code>robots.txt</code>, or write to the address above.</p>
 
   <footer>Page mise à jour pour la version 0.1 du robot.</footer>
 </main>
